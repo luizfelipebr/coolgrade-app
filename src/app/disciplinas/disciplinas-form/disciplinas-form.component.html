@@ -128,15 +128,16 @@
       disabled
       hidden
     />
-    <div class="row">
-      <div class="">
+    <div class="row ml-1">
+      <div>
         <button type="submit" class="btn btn-success" *ngIf="!disciplina.id">
           <i class="fa fa-save"></i> Salvar
         </button>
         <button type="submit" class="btn btn-primary" *ngIf="disciplina.id">
           <i class="fa fa-sync-alt"></i> Atualizar
         </button>
-
+      </div>
+      <div class="ml-auto mr-3">
         <button
           type="button"
           class="btn btn-danger ml-1"

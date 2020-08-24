@@ -2,4 +2,93 @@
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">Lista</li>
 </ol>
-<div class="container"></div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert" *ngIf="successMessage">
+        {{ successMessage }}
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+  <div class="row ml-1">
+    <div>
+      <button class="btn btn-outline-secondary" routerLink="/alunos-lista">
+        <i class="fa fa-arrow-left"></i> Voltar
+      </button>
+    </div>
+    <div class="ml-auto mr-3">
+      <button class="btn btn-outline-primary" (click)="newDisciplina()">
+        <i class="fa fa-plus"></i> Novo
+      </button>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-condensed table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Média máxima</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let disciplina of aluno.disciplines">
+            <td>{{ disciplina.id }}</td>
+            <td>{{ disciplina.name }}</td>
+            <td>{{ disciplina.averageGradeMax }}</td>
+            <td>{{ disciplina.status }}</td>
+            <td>
+              <button
+                class="btn btn-info btn-sm ml-1"
+                routerLink="/disciplinas-form/{{ disciplina.student_id }}/{{
+                  disciplina.id
+                }}"
+              >
+                <i class="fa fa-edit"></i>
+              </button>
+
+              <button
+                class="btn btn-danger btn-sm ml-1"
+                data-toggle="modal"
+                data-target="#deleteModal"
+                (click)="prepareToDelete(disciplina)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="deleteModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+        <div class="modal-body" *ngIf="selectedDisciplina">
+          Confirma a exclusão da disciplina {{ selectedDisciplina.name }}?
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-success"
+            data-dismiss="modal"
+            (click)="deleteDisciplina()"
+          >
+            Confirma
+          </button>
+          <button class="btn btn-default" data-dismiss="modal">Cancela</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,13 +20,13 @@ export class DisciplinasFormComponent implements OnInit {
   constructor(
     private service: DisciplinasService,
     private router: Router,
-    private activatedRout: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {
     this.disciplina = new Discipline();
   }
 
   ngOnInit(): void {
-    let params: Observable<Params> = this.activatedRout.params;
+    let params: Observable<Params> = this.activatedRoute.params;
     params.subscribe((urlParams) => {
       this.disciplinaId = urlParams['id'];
       this.disciplina.student_id = urlParams['student_id'];

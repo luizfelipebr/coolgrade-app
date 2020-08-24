@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Discipline } from '../Discipline';
-import { DisciplinasService } from 'src/app/disciplinas.service';
-import { AlunosService } from 'src/app/alunos.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Student } from '../../alunos/alunos-form/Student';
+import { AlunosService } from '../../alunos.service';
+import { DisciplinasService } from 'src/app/disciplinas.service';
+import { Discipline } from '../Discipline';
 import { Observable } from 'rxjs';
-import { Student } from 'src/app/alunos/alunos-form/Student';
 
 @Component({
   selector: 'app-disciplinas-lista',
@@ -12,34 +12,58 @@ import { Student } from 'src/app/alunos/alunos-form/Student';
   styleUrls: ['./disciplinas-lista.component.css'],
 })
 export class DisciplinasListaComponent implements OnInit {
-  disciplina: Discipline;
   aluno: Student;
-  aluno_id: number;
+  selectedDisciplina: Discipline;
+  successMessage: string;
+  errorMessage: string;
+  alunoId: number;
 
   constructor(
-    private service: DisciplinasService,
     private alunosService: AlunosService,
+    private service: DisciplinasService,
     private router: Router,
-    private activatedRout: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {
-    this.disciplina = new Discipline();
     this.aluno = new Student();
   }
 
   ngOnInit(): void {
-    let params: Observable<Params> = this.activatedRout.params;
+    this.alunosService
+      .getAlunoById(this.aluno.id)
+      .subscribe((response) => (this.aluno = response));
+
+    let params: Observable<Params> = this.activatedRoute.params;
     params.subscribe((urlParams) => {
-      this.aluno_id = urlParams['id'];
-      if (this.aluno_id) {
+      this.alunoId = urlParams['student_id'];
+      if (this.alunoId) {
         this.loadAluno();
       }
     });
   }
 
   loadAluno() {
-    this.alunosService.getAlunoById(this.aluno_id).subscribe(
+    this.alunosService.getAlunoById(this.alunoId).subscribe(
       (response) => (this.aluno = response),
       (errorResponse) => (this.aluno = new Student())
     );
+  }
+
+  newDisciplina() {
+    this.router.navigate([`/disciplinas-form/${this.aluno.id}`]);
+  }
+
+  deleteDisciplina() {
+    this.service.delete(this.selectedDisciplina).subscribe(
+      (response) => {
+        this.successMessage = 'Disciplina excluída com sucesso!';
+        this.ngOnInit();
+      },
+      (error) =>
+        (this.errorMessage = 'Ocorreu um erro ao excluir a disciplina.')
+    );
+  }
+
+  prepareToDelete(disciplina: Discipline) {
+    this.selectedDisciplina = disciplina;
   }
 }
