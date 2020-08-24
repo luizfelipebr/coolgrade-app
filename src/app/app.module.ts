@@ -9,6 +9,8 @@ import { TemplateModule } from './template/template.module';
 import { HomeComponent } from './home/home.component';
 import { AlunosModule } from './alunos/alunos.module';
 import { AlunosService } from './alunos.service';
+import { DisciplinasModule } from './disciplinas/disciplinas.module';
+import { DisciplinasService } from './disciplinas.service';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -18,8 +20,9 @@ import { AlunosService } from './alunos.service';
     AppRoutingModule,
     TemplateModule,
     AlunosModule,
+    DisciplinasModule,
   ],
-  providers: [AlunosService],
+  providers: [AlunosService, DisciplinasService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

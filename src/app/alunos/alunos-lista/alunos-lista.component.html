@@ -39,14 +39,21 @@
             <td>{{ aluno.email }}</td>
             <td>
               <button
-                class="btn btn-info btn-sm"
+                class="btn btn-success btn-sm"
+                routerLink="/disciplinas-lista/{{ aluno.id }}"
+              >
+                <i class="fa fa-user-graduate"></i> Disciplinas
+              </button>
+
+              <button
+                class="btn btn-info btn-sm ml-1"
                 routerLink="/alunos-form/{{ aluno.id }}"
               >
                 <i class="fa fa-edit"></i>
               </button>
 
               <button
-                class="btn btn-danger btn-sm"
+                class="btn btn-danger btn-sm ml-1"
                 data-toggle="modal"
                 data-target="#deleteModal"
                 (click)="prepareToDelete(aluno)"

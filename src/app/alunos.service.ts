@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Student } from './alunos/alunos-form/Student';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
-const url: string = 'http://localhost:8080/students';
+const url: string = environment.apiUrl + '/students';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   observe: 'response' as 'response',

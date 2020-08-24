@@ -1,0 +1,150 @@
+<h1 class="mt-4">Disciplinas</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">
+    {{ disciplina.id ? "Edição" : "Cadastro" }}
+  </li>
+</ol>
+<div class="container">
+  <form #disciplinaForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success == true">
+          Disciplina salva/atualizada com sucesso!
+        </div>
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngFor="let error of errors"
+        >
+          {{ error }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3" *ngIf="disciplina.id">
+        <div class="form-group">
+          <label>ID:</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngModel]="disciplina.id"
+            name="id"
+            disabled
+          />
+        </div>
+      </div>
+
+      <div class="col-md-9">
+        <div class="form-group">
+          <label>Nome: *</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="disciplina.name"
+            name="name"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>P1: </label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="disciplina.grade1"
+            name="grade1"
+          />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>PCL: </label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="disciplina.gradePcl"
+            name="gradePcl"
+          />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>P2: </label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="disciplina.grade2"
+            name="grade2"
+          />
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>P3: </label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="disciplina.grade3"
+            name="grade3"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Média máxima: </label>
+          <input
+            type="text"
+            class="form-control"
+            [ngModel]="disciplina.averageGradeMax"
+            name="averageGradeMax"
+            disabled
+          />
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="form-group">
+          <label>Status: </label>
+          <input
+            type="text"
+            class="form-control"
+            [ngModel]="disciplina.status"
+            name="status"
+            disabled
+          />
+        </div>
+      </div>
+    </div>
+    <input
+      type="text"
+      class="form-control"
+      [ngModel]="disciplina.student_id"
+      name="student_id"
+      disabled
+      hidden
+    />
+    <div class="row">
+      <div class="">
+        <button type="submit" class="btn btn-success" *ngIf="!disciplina.id">
+          <i class="fa fa-save"></i> Salvar
+        </button>
+        <button type="submit" class="btn btn-primary" *ngIf="disciplina.id">
+          <i class="fa fa-sync-alt"></i> Atualizar
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-danger ml-1"
+          (click)="backToList()"
+        >
+          <i class="fa fa-arrow-circle-left"></i> Voltar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
