@@ -1,0 +1,80 @@
+<h1 class="mt-4">Alunos</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">{{ aluno.id ? "Edição" : "Cadastro" }}</li>
+</ol>
+<div class="container">
+  <form #alunoForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success == true">
+          Aluno salvo/atualizado com sucesso!
+        </div>
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngFor="let error of errors"
+        >
+          {{ error }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="aluno.id">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>ID:</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngModel]="aluno.id"
+            name="id"
+            disabled
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Nome: *</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="aluno.name"
+            name="name"
+          />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>E-mail: *</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="aluno.email"
+            name="email"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <button type="submit" class="btn btn-success" *ngIf="!aluno.id">
+          <i class="fa fa-save"></i> Salvar
+        </button>
+        <button type="submit" class="btn btn-primary" *ngIf="aluno.id">
+          <i class="fa fa-sync-alt"></i> Atualizar
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-danger ml-1"
+          (click)="backToList()"
+        >
+          <i class="fa fa-arrow-circle-left"></i> Voltar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
